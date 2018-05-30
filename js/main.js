@@ -10,13 +10,17 @@ const selectSlide = (element) => {
   mainElement.appendChild(element.cloneNode(true));
 };
 
-const screens = Array.from(document.querySelector(`#templates`).content.querySelectorAll(`section`)).map((item)=>item);
+const screens = Array.from(document.querySelector(`#templates`).content.querySelectorAll(`section`));
 
 let current = 0;
 const select = (index) => {
-  index = index < 0 ? screens.length - 1 : index;
-  index = index >= screens.length ? 0 : index;
-  current = index;
+  if (index < 0) {
+    current = screens.length - 1;
+  } else if (index >= screens.length) {
+    current = 0;
+  } else {
+    current = index;
+  }
   selectSlide(screens[current]);
 };
 
