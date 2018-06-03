@@ -87,18 +87,15 @@ const genreScreen = createElementFromHTML(`<section class="main main--level main
   </div>
 </section>`);
 
-genreScreen.querySelector(`.genre`).addEventListener(`change`, () => {
-  const button = document.querySelector(`.genre-answer-send`);
-  const form = document.querySelector(`.genre`);
-  const inputs = Array.from(form.querySelectorAll(`input`));
-  if (inputs.some((el) => el.checked)) {
-    button.disabled = false;
-  } else {
-    button.disabled = true;
-  }
+const answerFormElement = genreScreen.querySelector(`.genre`);
+
+answerFormElement.addEventListener(`change`, () => {
+  const submitAnswerButton = document.querySelector(`.genre-answer-send`);
+  const answerInputs = Array.from(answerFormElement.querySelectorAll(`input`));
+  submitAnswerButton.disabled = !answerInputs.some((el) => el.checked);
 });
 
-genreScreen.querySelector(`.genre`).addEventListener(`submit`, () => {
+answerFormElement.addEventListener(`submit`, () => {
   const random = Math.random();
   if (random <= 0.5) {
     showScreen(`win`);

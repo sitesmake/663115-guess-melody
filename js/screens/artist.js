@@ -64,9 +64,9 @@ const artistScreen = createElementFromHTML(`<section class="main main--level mai
   </div>
 </section>`);
 
-artistScreen.querySelector(`.main-list`).addEventListener(`click`, () => {
+artistScreen.querySelector(`.main-list`).addEventListener(`change`, (evt) => {
+  window.console.log(evt.target.value);
   showScreen(`genre`);
 });
-
 
 export default artistScreen;
