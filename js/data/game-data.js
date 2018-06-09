@@ -1,5 +1,4 @@
-export const answerPoints = (answer) => {
-  const [success, time] = answer;
+export const answerPoints = ([success, time]) => {
   if (!success) {
     return -2;
   }

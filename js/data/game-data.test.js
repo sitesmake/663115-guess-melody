@@ -48,19 +48,36 @@ describe(`Функция подсчёта набранных баллов игр
 
 describe(`Функция вывода результата игрока`, () => {
   it(`Если игрок проиграл и у него закончилось время - то выводится соответствующее сообщение`, () => {
-    assert.equal(`Время вышло! Вы не успели отгадать все мелодии!`, resultsText([], {points: 12, notes: 2, time: 0}));
+    const timeOutResults = {points: 12, notes: 2, time: 0};
+    assert.equal(`Время вышло! Вы не успели отгадать все мелодии!`,
+        resultsText([], timeOutResults));
   });
 
   it(`Если игрок проиграл и у него закончились попытки - то выводится соответствующее сообщение`, () => {
-    assert.equal(`У вас закончились все попытки. Ничего, повезёт в следующий раз!`, resultsText([], {points: 12, notes: 0, time: 99}));
+    const livesOutResults = {points: 12, notes: 0, time: 99};
+    assert.equal(`У вас закончились все попытки. Ничего, повезёт в следующий раз!`,
+        resultsText([], livesOutResults));
   });
 
   it(`Если игрок смог пройти игру лучше всех, то его результат — выигрыш лучше всех`, () => {
-    assert.equal(`Вы заняли 1 место из 4 игроков. Это лучше, чем у 75% игроков`, resultsText([{points: 10, notes: 1, time: 15}, {points: 5, notes: 1, time: 15}, {points: 15, notes: 1, time: 15}], {points: 100, notes: 1, time: 15}));
+    const otherPlayersResults = [
+      {points: 10, notes: 1, time: 15},
+      {points: 5, notes: 1, time: 15},
+      {points: 15, notes: 1, time: 15}
+    ];
+    const playerResults = {points: 100, notes: 1, time: 15};
+    assert.equal(`Вы заняли 1 место из 4 игроков. Это лучше, чем у 75% игроков`,
+        resultsText(otherPlayersResults, playerResults));
   });
 
   it(`Если игрок смог пройти игру хуже всех, то его результат — выигрыш хуже всех`, () => {
-    assert.equal(`Вы заняли 4 место из 4 игроков.`, resultsText([{points: 10, notes: 1, time: 15}, {points: 5, notes: 1, time: 15}, {points: 15, notes: 1, time: 15}], {points: 4, notes: 1, time: 15}));
+    const otherPlayersResults = [
+      {points: 10, notes: 1, time: 15},
+      {points: 5, notes: 1, time: 15},
+      {points: 15, notes: 1, time: 15}
+    ];
+    const playerResults = {points: 4, notes: 1, time: 15};
+    assert.equal(`Вы заняли 4 место из 4 игроков.`, resultsText(otherPlayersResults, playerResults));
   });
 });
 
