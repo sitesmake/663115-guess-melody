@@ -1,3 +1,9 @@
+export const initialState = {
+  level: 0,
+  wrongAnswers: 0,
+  timeLeft: 300
+};
+
 export const answerPoints = ([success, time]) => {
   if (!success) {
     return -2;
