@@ -16,9 +16,9 @@ const screens = {
 
 const mainElement = document.querySelector(`.main`);
 export const showScreen = (name) => {
-  const element = screens[name];
+  const screen = screens[name];
   mainElement.innerHTML = ``;
-  mainElement.appendChild(element);
+  mainElement.appendChild(screen());
 };
 
 document.addEventListener(`click`, (evt) => {

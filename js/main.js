@@ -1,29 +1,33 @@
-import {initialState} from './data/game-data';
-import {levels} from './data/levels-data';
+import {initialState, levels} from './data/game-data';
 import {showScreen} from './screens';
 
-const changeLevel = (game, level) => {
-  return Object.assign({}, game, {
-    level
-  });
-};
+const canContinue = () => window.gameState.wrongAnswers < 3;
 
-const canContinue = (game) => game.wrongAnswers < 3;
-
-const die = (game) => {
-  if (!canContinue(game)) {
+const die = () => {
+  if (!canContinue()) {
     throw new Error(`You can't continue anymore`);
   }
+  window.gameState.wrongAnswers += 1;
+  goNextLevel();
+};
 
-  const wrongAnswers = game.wrongAnswers + 1;
+const showCurrentLevel = () => {
+  if (window.currentLevel.type === `artist`) {
+    showScreen(`artist`);
+  } else {
+    showScreen(`genre`);
+  }
+};
 
-  return Object.assign({}, game, {
-    wrongAnswers
-  });
+const goNextLevel = () => {
+  window.gameState.currentLevelIndex += 1;
+  window.currentLevel = levels[window.gameState.currentLevelIndex];
+  showCurrentLevel();
 };
 
 const startGame = () => {
-  const game = Object.assign({}, initialState);
+  window.gameState = Object.assign({}, initialState);
+  window.currentLevel = levels[window.gameState.currentLevelIndex];
   showScreen(`welcome`);
 };
 

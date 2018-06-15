@@ -1,5 +1,5 @@
 import {assert} from 'chai';
-import {answerPoints, totalPoints, resultsText, timer} from './game-data.js';
+import {answerPoints, totalPoints, resultsText, timer} from './game.js';
 
 describe(`Функция подсчёта набранных баллов игрока`, () => {
   it(`Начисляет за правильный ответ 1 балл`, () => {
