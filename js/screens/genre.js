@@ -3,10 +3,11 @@ import {headerHTML} from './header';
 import {playerHTML, onPlayerControlClick} from '../audio';
 
 const answerHTML = (item, i) => {
+  const autoplay = !!(i === 0);
   return `
     <div class="genre-answer">
       <div class="player-wrapper">
-        ${playerHTML(`${item.src}`, false)}
+        ${playerHTML(`${item.src}`, autoplay)}
       </div>
       <input type="checkbox" name="answer" value="answer-${i}" id="a-${i}">
       <label class="genre-answer-check" for="a-${i}"></label>
@@ -39,8 +40,12 @@ const genreLevel = () => {
     submitAnswerButton.disabled = !answerInputs.some((el) => el.checked);
   });
 
-  answerFormElement.addEventListener(`submit`, () => {
-    if (Math.random() > 0.5) {
+  answerFormElement.addEventListener(`submit`, (evt) => {
+    const answersElements = evt.target.querySelectorAll(`input`);
+    const correctAnswer = currentLevel.questions.every((question, index) => {
+      return question.correct === answersElements[index].checked;
+    });
+    if (correctAnswer) {
       window.correctAnswer();
     } else {
       window.wrongAnswer();

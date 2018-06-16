@@ -5,10 +5,11 @@ const canContinue = () => window.gameState.wrongAnswers < 3;
 
 const die = () => {
   if (!canContinue()) {
-    throw new Error(`You can't continue anymore`);
+    showScreen(`loose-lives`);
+  } else {
+    window.gameState.wrongAnswers += 1;
+    goNextLevel();
   }
-  window.gameState.wrongAnswers += 1;
-  goNextLevel();
 };
 
 const showCurrentLevel = () => {
@@ -21,8 +22,12 @@ const showCurrentLevel = () => {
 
 const goNextLevel = () => {
   window.gameState.currentLevelIndex += 1;
-  window.currentLevel = levels[window.gameState.currentLevelIndex];
-  showCurrentLevel();
+  if (levels[window.gameState.currentLevelIndex]) {
+    window.currentLevel = levels[window.gameState.currentLevelIndex];
+    showCurrentLevel();
+  } else {
+    showScreen(`result`);
+  }
 };
 
 const startGame = () => {
@@ -33,10 +38,14 @@ const startGame = () => {
 
 startGame();
 
+window.restart = () => startGame();
+
 window.correctAnswer = () => {
+  window.gameState.answers.push([true, parseInt(Math.random() * 30, 10)]);
   goNextLevel();
 };
 
 window.wrongAnswer = () => {
+  window.gameState.answers.push([false, parseInt(Math.random() * 30, 10)]);
   die();
 };

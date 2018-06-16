@@ -25,7 +25,7 @@ const artistLevel = () => {
       <div class="main-wrap">
         <h2 class="title main-title">Кто исполняет эту песню?</h2>
         <div class="player-wrapper">
-          ${playerHTML(`${currentLevel.questionSrc}`, false)}
+          ${playerHTML(`${currentLevel.questionSrc}`, true)}
         </div>
         <form class="main-list">
           ${currentLevel.answers.map((answer, index) => answerHTML(answer, index)).join(``)}

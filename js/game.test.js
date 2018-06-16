@@ -16,11 +16,6 @@ describe(`Функция подсчёта набранных баллов игр
 });
 
 describe(`Функция подсчёта набранных баллов игрока`, () => {
-  it(`Если игрок ответил меньше, чем на 10 вопросов, то игра считается не пройденной и функция должна вернуть -1`, () => {
-    const incompletedAnswers = [[true, 15], [false, 45]];
-    assert.equal(-1, totalPoints(incompletedAnswers));
-  });
-
   it(`Если игрок ответил на все вопросы правильно и не быстро, и ни разу не ошибся, то функция должна вернуть 10 баллов;`, () => {
     const completedAnswers = [
       [true, 31], [true, 31], [true, 31], [true, 31], [true, 31],
@@ -48,35 +43,35 @@ describe(`Функция подсчёта набранных баллов игр
 
 describe(`Функция вывода результата игрока`, () => {
   it(`Если игрок проиграл и у него закончилось время - то выводится соответствующее сообщение`, () => {
-    const timeOutResults = {points: 12, notes: 2, time: 0};
+    const timeOutResults = {totalPoints: 12, wrongAnswers: 2, timeLeft: 0};
     assert.equal(`Время вышло! Вы не успели отгадать все мелодии!`,
         resultsText([], timeOutResults));
   });
 
   it(`Если игрок проиграл и у него закончились попытки - то выводится соответствующее сообщение`, () => {
-    const livesOutResults = {points: 12, notes: 0, time: 99};
+    const livesOutResults = {totalPoints: 12, wrongAnswers: 3, timeLeft: 99};
     assert.equal(`У вас закончились все попытки. Ничего, повезёт в следующий раз!`,
         resultsText([], livesOutResults));
   });
 
   it(`Если игрок смог пройти игру лучше всех, то его результат — выигрыш лучше всех`, () => {
     const otherPlayersResults = [
-      {points: 10, notes: 1, time: 15},
-      {points: 5, notes: 1, time: 15},
-      {points: 15, notes: 1, time: 15}
+      {totalPoints: 10, wrongAnswers: 1, timeLeft: 15},
+      {totalPoints: 5, wrongAnswers: 1, timeLeft: 15},
+      {totalPoints: 15, wrongAnswers: 1, timeLeft: 15}
     ];
-    const playerResults = {points: 100, notes: 1, time: 15};
+    const playerResults = {totalPoints: 100, wrongAnswers: 1, timeLeft: 15};
     assert.equal(`Вы заняли 1 место из 4 игроков. Это лучше, чем у 75% игроков`,
         resultsText(otherPlayersResults, playerResults));
   });
 
   it(`Если игрок смог пройти игру хуже всех, то его результат — выигрыш хуже всех`, () => {
     const otherPlayersResults = [
-      {points: 10, notes: 1, time: 15},
-      {points: 5, notes: 1, time: 15},
-      {points: 15, notes: 1, time: 15}
+      {totalPoints: 10, wrongAnswers: 1, timeLeft: 15},
+      {totalPoints: 5, wrongAnswers: 1, timeLeft: 15},
+      {totalPoints: 15, wrongAnswers: 1, timeLeft: 15}
     ];
-    const playerResults = {points: 4, notes: 1, time: 15};
+    const playerResults = {totalPoints: 4, wrongAnswers: 1, timeLeft: 15};
     assert.equal(`Вы заняли 4 место из 4 игроков.`, resultsText(otherPlayersResults, playerResults));
   });
 });
