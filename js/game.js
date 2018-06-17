@@ -1,3 +1,5 @@
+import {declension} from './utils';
+
 export const answerPoints = ([success, time]) => {
   if (!success) {
     return -2;
@@ -24,10 +26,10 @@ export const resultsText = (results, currentPlayerResult) => {
   results.sort((a, b) => b.totalPoints - a.totalPoints);
   const playerPosition = results.findIndex((el) => el === currentPlayerResult) + 1;
   const totalPlayers = results.length;
-  const bestPercents = (totalPlayers - playerPosition) / totalPlayers * 100;
-  let message = `Вы заняли ${playerPosition} место из ${totalPlayers} игроков.`;
+  const bestPercents = parseInt((totalPlayers - playerPosition) / totalPlayers * 100, 10);
+  let message = `Вы заняли ${playerPosition} место из ${totalPlayers} игрок${declension(totalPlayers, `а`, `ов`, `ов`)}.`;
   if (bestPercents > 0) {
-    message += ` Это лучше, чем у ${bestPercents}% игроков`;
+    message += ` Это лучше, чем у ${bestPercents}% игрок${declension(bestPercents, `а`, `ов`, `ов`)}`;
   }
   return message;
 };
