@@ -1,48 +1,97 @@
-export const answerPoints = ([success, time]) => {
-  if (!success) {
-    return -2;
-  }
-  if (time > 30) {
-    return 1;
-  }
-  return 2;
+export const initialState = {
+  currentLevelIndex: 0,
+  wrongAnswers: 0,
+  timeLeft: 300,
+  answers: [],
+  totalPoints: 0,
+  otherPlayersResults: [
+    {totalPoints: 10, wrongAnswers: 1, timeLeft: 215},
+    {totalPoints: 5, wrongAnswers: 0, timeLeft: 190},
+    {totalPoints: 15, wrongAnswers: 2, timeLeft: 225}
+  ]
 };
 
-export const totalPoints = (answers) => {
-  if (answers.length < 10) {
-    return -1;
-  }
-  const result = answers.reduce((sum, answer) => sum + answerPoints(answer), 0);
-  return result;
-};
-
-export const resultsText = (results, currentPlayerResult) => {
-  if (currentPlayerResult.time === 0) {
-    return `Время вышло! Вы не успели отгадать все мелодии!`;
-  }
-  if (currentPlayerResult.notes === 0) {
-    return `У вас закончились все попытки. Ничего, повезёт в следующий раз!`;
-  }
-  results.push(currentPlayerResult);
-  results.sort((a, b) => b.points - a.points);
-  const playerPosition = results.findIndex((el) => el === currentPlayerResult) + 1;
-  const totalPlayers = results.length;
-  const bestPercents = (totalPlayers - playerPosition) / totalPlayers * 100;
-  let message = `Вы заняли ${playerPosition} место из ${totalPlayers} игроков.`;
-  if (bestPercents > 0) {
-    message += ` Это лучше, чем у ${bestPercents}% игроков`;
-  }
-  return message;
-};
-
-export const timer = (time) => {
-  return Object.freeze({
-    time,
-    tick() {
-      if (time > 1) {
-        return timer(time - 1);
+export const levels = [
+  {
+    type: `artist`,
+    questionSrc: `https://www.youtube.com/audiolibrary_download?vid=91624fdc22fc54ed`,
+    answers: [
+      {
+        correct: true,
+        src: `http://placehold.it/134x134`,
+        artist: `Пелагея`
+      },
+      {
+        src: `http://placehold.it/134x134`,
+        artist: `The Prodigy`
+      },
+      {
+        src: `http://placehold.it/134x134`,
+        artist: `Lorde`
       }
-      return `Время вышло!`;
-    }
-  });
-};
+    ]
+  },
+  {
+    type: `genre`,
+    title: `Выберите инди-рок треки`,
+    questions: [
+      {
+        src: `https://www.youtube.com/audiolibrary_download?vid=dc3b4dc549becd6b`,
+        correct: true
+      },
+      {
+        src: `https://www.youtube.com/audiolibrary_download?vid=91624fdc22fc54ed`,
+        correct: false
+      },
+      {
+        src: `https://www.youtube.com/audiolibrary_download?vid=a127d9b7de8a17cf`,
+        correct: true
+      },
+      {
+        src: `https://www.youtube.com/audiolibrary_download?vid=dfb828f40096184c`,
+        correct: false
+      }
+    ]
+  },
+  {
+    type: `artist`,
+    questionSrc: `https://www.youtube.com/audiolibrary_download?vid=a127d9b7de8a17cf`,
+    answers: [
+      {
+        correct: true,
+        src: `http://placehold.it/134x134`,
+        artist: `Пелагея`
+      },
+      {
+        src: `http://placehold.it/134x134`,
+        artist: `The Prodigy`
+      },
+      {
+        src: `http://placehold.it/134x134`,
+        artist: `Lorde`
+      }
+    ]
+  },
+  {
+    type: `genre`,
+    title: `Выберите инди-рок треки`,
+    questions: [
+      {
+        src: `https://www.youtube.com/audiolibrary_download?vid=dfb828f40096184c`,
+        correct: true
+      },
+      {
+        src: `https://www.youtube.com/audiolibrary_download?vid=dc3b4dc549becd6b`,
+        correct: false
+      },
+      {
+        src: `https://www.youtube.com/audiolibrary_download?vid=a127d9b7de8a17cf`,
+        correct: true
+      },
+      {
+        src: `https://www.youtube.com/audiolibrary_download?vid=91624fdc22fc54ed`,
+        correct: false
+      }
+    ]
+  }
+];
