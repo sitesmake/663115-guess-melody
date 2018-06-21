@@ -1,5 +1,6 @@
 import {initialState, levels} from './data/game-data';
-import {showScreen} from './screens';
+import {showScreen} from './screens-controller';
+import {totalPoints} from './game';
 
 const canContinue = () => window.gameState.wrongAnswers < 3;
 
@@ -26,6 +27,7 @@ const goNextLevel = () => {
     window.currentLevel = levels[window.gameState.currentLevelIndex];
     showCurrentLevel();
   } else {
+    window.gameState.totalPoints = totalPoints(window.gameState.answers);
     showScreen(`result`);
   }
 };
@@ -49,3 +51,5 @@ window.wrongAnswer = () => {
   window.gameState.answers.push([false, parseInt(Math.random() * 30, 10)]);
   die();
 };
+
+window.showFirstGameScreen = () => showScreen(`artist`);

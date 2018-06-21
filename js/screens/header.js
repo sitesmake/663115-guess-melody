@@ -2,7 +2,9 @@ const addPaddingZero = (n) => n < 9 ? `0` + n : n;
 const getMinutes = (time) => addPaddingZero(Math.floor(time / 60));
 const getSeconds = (time) => addPaddingZero(Math.floor(time % 60));
 
-export const headerHTML = (state) => {
+export const headerHTML = () => {
+  const state = window.gameState;
+
   return `
     <a class="play-again play-again__wrap" href="#">
       <img class="play-again__img" src="/img/melody-logo-ginger.png" alt="logo" width="177" height="76">
