@@ -60,15 +60,15 @@ export const levels = [
       {
         correct: true,
         src: `http://placehold.it/134x134`,
-        artist: `Пелагея`
+        artist: `Пелагея-2`
       },
       {
         src: `http://placehold.it/134x134`,
-        artist: `The Prodigy`
+        artist: `Lorde-2`
       },
       {
         src: `http://placehold.it/134x134`,
-        artist: `Lorde`
+        artist: `The Prodigy-2`
       }
     ]
   },
