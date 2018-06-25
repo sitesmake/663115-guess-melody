@@ -15,7 +15,7 @@ const answerHTML = (item, i) => {
   `;
 };
 
-export default class ArtistView extends AbstractView {
+export default class GenreView extends AbstractView {
   constructor(gameState) {
     super();
     this.gameState = gameState;

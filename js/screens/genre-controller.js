@@ -1,15 +1,15 @@
 import GenreView from '../views/genre-view';
 
 export default (gameState) => {
-  const genreScreen = new GenreView(gameState);
+  const genreController = new GenreView(gameState);
 
-  genreScreen.onChangeAnswerFormElement = () => {
+  genreController.onChangeAnswerFormElement = () => {
     const submitAnswerButton = document.querySelector(`.genre-answer-send`);
     const answerInputs = Array.from(document.querySelector(`.genre`).querySelectorAll(`input`));
     submitAnswerButton.disabled = !answerInputs.some((el) => el.checked);
   };
 
-  genreScreen.onSubmitAnswerFormElement = (evt) => {
+  genreController.onSubmitAnswerFormElement = (evt) => {
     const currentLevel = gameState.currentLevel;
     const answersElements = evt.target.querySelectorAll(`input`);
     const correctAnswer = currentLevel.questions.every((question, index) => {
@@ -22,5 +22,5 @@ export default (gameState) => {
     }
   };
 
-  return genreScreen;
+  return genreController;
 };

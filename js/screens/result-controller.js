@@ -1,7 +1,7 @@
 import ResultView from '../views/result-view';
 
 export default (gameState) => {
-  const resultScreen = new ResultView(gameState);
+  const resultController = new ResultView(gameState);
 
-  return resultScreen;
+  return resultController;
 };

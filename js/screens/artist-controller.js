@@ -2,9 +2,9 @@ import ArtistView from '../views/artist-view';
 import {onPlayerControlClick} from '../audio';
 
 export default (gameState) => {
-  const artistScreen = new ArtistView(gameState);
+  const artistController = new ArtistView(gameState);
 
-  artistScreen.onChangeAnswer = (evt) => {
+  artistController.onChangeAnswer = (evt) => {
     const answerIndex = +evt.target.value.split(`-`)[1];
     if (gameState.currentLevel.answers[answerIndex].correct === true) {
       window.correctAnswer();
@@ -13,9 +13,9 @@ export default (gameState) => {
     }
   };
 
-  artistScreen.onPlayerControlClick = (evt) => {
+  artistController.onPlayerControlClick = (evt) => {
     onPlayerControlClick(evt);
   };
 
-  return artistScreen;
+  return artistController;
 };
