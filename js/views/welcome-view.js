@@ -1,8 +1,9 @@
 import AbstractView from '../abstract-view';
 
 export default class WelcomeView extends AbstractView {
-  constructor() {
+  constructor(gameState) {
     super();
+    this.state = gameState;
   }
 
   get template() {

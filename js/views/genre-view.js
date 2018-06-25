@@ -16,16 +16,17 @@ const answerHTML = (item, i) => {
 };
 
 export default class ArtistView extends AbstractView {
-  constructor() {
+  constructor(gameState) {
     super();
+    this.gameState = gameState;
   }
 
   get template() {
-    const currentLevel = window.currentLevel;
+    const currentLevel = this.gameState.currentLevel;
 
     return `
       <section class="main main--level main--level-genre">
-        ${headerHTML()}
+        ${headerHTML(this.gameState)}
         <div class="main-wrap">
           <h2 class="title">${currentLevel.title}</h2>
           <form class="genre">
