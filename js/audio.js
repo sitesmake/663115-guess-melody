@@ -20,7 +20,7 @@ export const playerHTML = (src, playing) => {
 };
 
 export const onPlayerControlClick = (evt) => {
-  evt.stopPropagation();
+  evt.preventDefault();
   const element = evt.target;
   const id = element.dataset.id;
   const audioElement = document.querySelector(`#${id}`);
