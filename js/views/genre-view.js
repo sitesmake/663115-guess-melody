@@ -26,7 +26,9 @@ export default class GenreView extends AbstractView {
 
     return `
       <section class="main main--level main--level-genre">
-        ${headerHTML(this.gameState)}
+        <header>
+          ${headerHTML(this.gameState)}
+        </header>
         <div class="main-wrap">
           <h2 class="title">${currentLevel.title}</h2>
           <form class="genre">

@@ -26,7 +26,9 @@ export default class ArtistView extends AbstractView {
 
     return `
       <section class="main main--level main--level-artist">
-        ${headerHTML(this.gameState)}
+        <header>
+          ${headerHTML(this.gameState)}
+        </header>
         <div class="main-wrap">
           <h2 class="title main-title">Кто исполняет эту песню?</h2>
           <div class="player-wrapper">

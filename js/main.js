@@ -6,13 +6,16 @@ import welcomeScreen from './screens/welcome-controller';
 import artistScreen from './screens/artist-controller';
 import genreScreen from './screens/genre-controller';
 import resultScreen from './screens/result-controller';
+import {headerHTML} from './screens/header';
 
 let gameState;
+let timer;
 
 const canContinue = () => gameState.wrongAnswers < 3;
 
 const die = () => {
   if (!canContinue()) {
+    stopTimer(timer);
     showScreen(`loose-lives`);
   } else {
     gameState.wrongAnswers += 1;
@@ -35,6 +38,7 @@ const goNextLevel = () => {
     showCurrentLevel();
   } else {
     gameState.totalPoints = totalPoints(gameState.answers);
+    stopTimer(timer);
     renderScreen(resultScreen(gameState));
   }
 };
@@ -59,4 +63,30 @@ window.wrongAnswer = () => {
   die();
 };
 
-window.showFirstGameScreen = () => renderScreen(artistScreen(gameState));
+window.showFirstGameScreen = () => {
+  startTimer();
+  renderScreen(artistScreen(gameState));
+};
+
+const updateHeader = (state) => {
+  const headerElement = document.querySelector(`header`);
+  headerElement.innerHTML = headerHTML(state);
+};
+
+const tick = () => {
+  gameState = Object.assign({}, gameState, {
+    timeLeft: gameState.timeLeft - 1
+  });
+  updateHeader(gameState);
+};
+
+const startTimer = () => {
+  timer = setTimeout(() => {
+    tick();
+    startTimer();
+  }, 1000);
+};
+
+const stopTimer = () => {
+  clearTimeout(timer);
+};
