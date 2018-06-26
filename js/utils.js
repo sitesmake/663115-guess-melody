@@ -20,3 +20,9 @@ export const declension = (number, one, two, five) => {
   }
   return ending;
 };
+
+export const renderScreen = (screen) => {
+  const renderElement = document.querySelector(`.main`);
+  renderElement.innerHTML = ``;
+  renderElement.appendChild(screen.element);
+};

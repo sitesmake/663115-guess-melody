@@ -1,39 +1,48 @@
 import {initialState, levels} from './data/game-data';
-import {showScreen} from './screens';
+import {showScreen} from './screens-controller';
+import {totalPoints} from './game';
+import {renderScreen} from './utils';
+import welcomeScreen from './screens/welcome-controller';
+import artistScreen from './screens/artist-controller';
+import genreScreen from './screens/genre-controller';
+import resultScreen from './screens/result-controller';
 
-const canContinue = () => window.gameState.wrongAnswers < 3;
+let gameState;
+
+const canContinue = () => gameState.wrongAnswers < 3;
 
 const die = () => {
   if (!canContinue()) {
     showScreen(`loose-lives`);
   } else {
-    window.gameState.wrongAnswers += 1;
+    gameState.wrongAnswers += 1;
     goNextLevel();
   }
 };
 
 const showCurrentLevel = () => {
-  if (window.currentLevel.type === `artist`) {
-    showScreen(`artist`);
+  if (gameState.currentLevel.type === `artist`) {
+    renderScreen(artistScreen(gameState));
   } else {
-    showScreen(`genre`);
+    renderScreen(genreScreen(gameState));
   }
 };
 
 const goNextLevel = () => {
-  window.gameState.currentLevelIndex += 1;
-  if (levels[window.gameState.currentLevelIndex]) {
-    window.currentLevel = levels[window.gameState.currentLevelIndex];
+  gameState.currentLevelIndex += 1;
+  if (levels[gameState.currentLevelIndex]) {
+    gameState.currentLevel = levels[gameState.currentLevelIndex];
     showCurrentLevel();
   } else {
-    showScreen(`result`);
+    gameState.totalPoints = totalPoints(gameState.answers);
+    renderScreen(resultScreen(gameState));
   }
 };
 
 const startGame = () => {
-  window.gameState = Object.assign({}, initialState);
-  window.currentLevel = levels[window.gameState.currentLevelIndex];
-  showScreen(`welcome`);
+  gameState = Object.assign({}, initialState);
+  gameState.currentLevel = levels[gameState.currentLevelIndex];
+  renderScreen(welcomeScreen());
 };
 
 startGame();
@@ -41,11 +50,13 @@ startGame();
 window.restart = () => startGame();
 
 window.correctAnswer = () => {
-  window.gameState.answers.push([true, parseInt(Math.random() * 30, 10)]);
+  gameState.answers.push([true, parseInt(Math.random() * 30, 10)]);
   goNextLevel();
 };
 
 window.wrongAnswer = () => {
-  window.gameState.answers.push([false, parseInt(Math.random() * 30, 10)]);
+  gameState.answers.push([false, parseInt(Math.random() * 30, 10)]);
   die();
 };
+
+window.showFirstGameScreen = () => renderScreen(artistScreen(gameState));
