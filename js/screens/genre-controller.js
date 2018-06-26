@@ -12,7 +12,7 @@ export default (gameState) => {
   genreController.onSubmitAnswerFormElement = (evt) => {
     const currentLevel = gameState.currentLevel;
     const answersElements = evt.target.querySelectorAll(`input`);
-    const correctAnswer = currentLevel.questions.every((question, index) => {
+    const correctAnswer = Array.from(currentLevel.questions).every((question, index) => {
       return question.correct === answersElements[index].checked;
     });
     if (correctAnswer) {

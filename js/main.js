@@ -42,7 +42,7 @@ const goNextLevel = () => {
 const startGame = () => {
   gameState = Object.assign({}, initialState);
   gameState.currentLevel = levels[gameState.currentLevelIndex];
-  renderScreen(welcomeScreen(gameState));
+  renderScreen(welcomeScreen());
 };
 
 startGame();

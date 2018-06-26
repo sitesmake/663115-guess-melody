@@ -1,7 +1,7 @@
 import WelcomeView from '../views/welcome-view';
 
-export default (gameState) => {
-  const welcomeController = new WelcomeView(gameState);
+export default () => {
+  const welcomeController = new WelcomeView();
 
   welcomeController.onStartClick = () => window.showFirstGameScreen();
 
