@@ -19,12 +19,22 @@ export const playerHTML = (src, playing) => {
     </div>`;
 };
 
+const stopAllAudio = () => {
+  document.querySelectorAll(`.player`).forEach((item) => {
+    item.querySelector(`audio`).pause();
+    const button = item.querySelector(`button`);
+    button.classList.remove(`player-control--pause`);
+    button.classList.add(`player-control--play`);
+  });
+};
+
 export const onPlayerControlClick = (evt) => {
   evt.preventDefault();
   const element = evt.target;
   const id = element.dataset.id;
   const audioElement = document.querySelector(`#${id}`);
   if (element.classList.contains(`player-control--play`)) {
+    stopAllAudio();
     audioElement.play();
     element.classList.remove(`player-control--play`);
     element.classList.add(`player-control--pause`);

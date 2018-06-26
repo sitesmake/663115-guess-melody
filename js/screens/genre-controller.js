@@ -1,4 +1,5 @@
 import GenreView from '../views/genre-view';
+import {onPlayerControlClick} from '../audio';
 
 export default (gameState) => {
   const genreController = new GenreView(gameState);
@@ -12,7 +13,7 @@ export default (gameState) => {
   genreController.onSubmitAnswerFormElement = (evt) => {
     const currentLevel = gameState.currentLevel;
     const answersElements = evt.target.querySelectorAll(`input`);
-    const correctAnswer = Array.from(currentLevel.questions).every((question, index) => {
+    const correctAnswer = currentLevel.questions.every((question, index) => {
       return question.correct === answersElements[index].checked;
     });
     if (correctAnswer) {
@@ -20,6 +21,10 @@ export default (gameState) => {
     } else {
       window.wrongAnswer();
     }
+  };
+
+  genreController.onPlayerControlClick = (evt) => {
+    onPlayerControlClick(evt);
   };
 
   return genreController;
