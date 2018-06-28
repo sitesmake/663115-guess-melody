@@ -1,0 +1,42 @@
+import {levels} from './data/game-data';
+
+export default class GameModel {
+  constructor(gameState) {
+    this._gameState = gameState;
+    this.restart();
+  }
+
+  restart() {
+    this.gameState = Object.assign({}, this._gameState);
+    this.setNextLevel();
+  }
+
+  setNextLevel() {
+    this.gameState.currentLevelIndex += 1;
+    this.gameState.currentLevel = levels[this.gameState.currentLevelIndex];
+  }
+
+  canContinue() {
+    return this.gameState.wrongAnswers < 3;
+  }
+
+  die() {
+    if (!this.canContinue()) {
+      // stopTimer(timer);
+      // showScreen(`loose-lives`);
+    } else {
+      this.gameState.wrongAnswers += 1;
+      this.setNextLevel();
+    }
+  }
+
+  correctAnswer() {
+    this.gameState.answers.push([true, parseInt(Math.random() * 30, 10)]);
+    this.setNextLevel();
+  }
+
+  wrongAnswer() {
+    this.gameState.answers.push([false, parseInt(Math.random() * 30, 10)]);
+    this.die();
+  }
+}

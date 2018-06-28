@@ -1,5 +1,5 @@
 export const initialState = {
-  currentLevelIndex: 0,
+  currentLevelIndex: -1,
   wrongAnswers: 0,
   timeLeft: 300,
   answers: [],
@@ -8,7 +8,8 @@ export const initialState = {
     {totalPoints: 10, wrongAnswers: 1, timeLeft: 215},
     {totalPoints: 5, wrongAnswers: 0, timeLeft: 190},
     {totalPoints: 15, wrongAnswers: 2, timeLeft: 225}
-  ]
+  ],
+  currentLevel: {}
 };
 
 export const levels = [
