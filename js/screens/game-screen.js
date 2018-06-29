@@ -29,7 +29,7 @@ export default class GameScreen {
         } else {
           this.model.wrongAnswer();
         }
-        Application.showGameScreen();
+        this.showNextGameStep();
       };
 
       genreController.onPlayerControlClick = (evt) => {
@@ -47,7 +47,7 @@ export default class GameScreen {
         } else {
           this.model.wrongAnswer();
         }
-        Application.showGameScreen();
+        this.showNextGameStep();
       };
 
       artistController.onPlayerControlClick = (evt) => {
@@ -55,6 +55,14 @@ export default class GameScreen {
       };
 
       return artistController.element;
+    }
+  }
+
+  showNextGameStep() {
+    if (this.model.gameState.currentLevel) {
+      Application.showGameScreen();
+    } else {
+      Application.showStatisticsScreen();
     }
   }
 }

@@ -3,11 +3,11 @@ import {renderScreen} from './utils';
 import WelcomeScreen from './screens/welcome-screen';
 import GameModel from './game-model';
 import GameScreen from './screens/game-screen';
+import StatisticsScreen from './screens/statistics-screen';
 
 let model;
 
 export default class Application {
-
   static showWelcome() {
     model = new GameModel(initialState);
     const welcome = new WelcomeScreen();
@@ -17,11 +17,10 @@ export default class Application {
   static showGameScreen() {
     const gameScreen = new GameScreen(model);
     renderScreen(gameScreen);
-    // gameScreen.startGame();
   }
 
-  // static showStats(stats) {
-  //   const statistics = new StatsScreen(stats);
-  //   changeView(statistics.element);
-  // }
+  static showStatisticsScreen() {
+    const statisticsScreen = new StatisticsScreen(model);
+    renderScreen(statisticsScreen);
+  }
 }

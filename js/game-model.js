@@ -1,4 +1,5 @@
 import {levels} from './data/game-data';
+import {totalPoints} from './game';
 
 export default class GameModel {
   constructor(gameState) {
@@ -38,5 +39,9 @@ export default class GameModel {
   wrongAnswer() {
     this.gameState.answers.push([false, parseInt(Math.random() * 30, 10)]);
     this.die();
+  }
+
+  generateStatistics() {
+    this.gameState.totalPoints = totalPoints(this.gameState.answers);
   }
 }
