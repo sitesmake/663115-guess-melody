@@ -26,7 +26,9 @@ export default class GenreView extends AbstractView {
 
     return `
       <section class="main main--level main--level-genre">
-        ${headerHTML(this.gameState)}
+        <header>
+          ${headerHTML(this.gameState)}
+        </header>
         <div class="main-wrap">
           <h2 class="title">${currentLevel.title}</h2>
           <form class="genre">
@@ -43,6 +45,8 @@ export default class GenreView extends AbstractView {
 
   onPlayerControlClick() { }
 
+  onRestartClick() { }
+
   bind() {
     const answerFormElement = this.element.querySelector(`.genre`);
 
@@ -58,6 +62,10 @@ export default class GenreView extends AbstractView {
       item.addEventListener(`click`, (evt) => {
         this.onPlayerControlClick(evt);
       });
+    });
+
+    this.element.querySelector(`.play-again`).addEventListener(`click`, (evt) => {
+      this.onRestartClick(evt);
     });
   }
 }
