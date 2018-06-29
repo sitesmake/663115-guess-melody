@@ -45,6 +45,8 @@ export default class ArtistView extends AbstractView {
 
   onPlayerControlClick() { }
 
+  onRestartClick() { }
+
   bind() {
     this.element.querySelector(`.main-list`).addEventListener(`change`, (evt) => {
       this.onChangeAnswer(evt);
@@ -52,6 +54,10 @@ export default class ArtistView extends AbstractView {
 
     this.element.querySelector(`.player-control`).addEventListener(`click`, (evt) => {
       this.onPlayerControlClick(evt);
+    });
+
+    this.element.querySelector(`.play-again`).addEventListener(`click`, (evt) => {
+      this.onRestartClick(evt);
     });
   }
 }

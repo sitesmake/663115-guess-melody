@@ -25,8 +25,8 @@ export default class Application {
     renderScreen(statisticsScreen);
   }
 
-  static showLooseScreen(reason) {
-    const looseScreen = new LooseScreen(reason);
+  static showLooseScreen() {
+    const looseScreen = new LooseScreen(model);
     renderScreen(looseScreen);
   }
 }

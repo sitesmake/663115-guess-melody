@@ -2,11 +2,12 @@ import LooseView from '../views/loose-view';
 import Application from '../application';
 
 export default class LooseScreen {
-  constructor() {
+  constructor(model) {
+    this.model = model;
   }
 
   get element() {
-    const looseView = new LooseView();
+    const looseView = new LooseView(this.model.gameState.reasonLoose);
 
     looseView.onRestartClick = () => Application.showWelcome();
 

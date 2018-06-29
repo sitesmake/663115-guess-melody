@@ -45,6 +45,8 @@ export default class GenreView extends AbstractView {
 
   onPlayerControlClick() { }
 
+  onRestartClick() { }
+
   bind() {
     const answerFormElement = this.element.querySelector(`.genre`);
 
@@ -60,6 +62,10 @@ export default class GenreView extends AbstractView {
       item.addEventListener(`click`, (evt) => {
         this.onPlayerControlClick(evt);
       });
+    });
+
+    this.element.querySelector(`.play-again`).addEventListener(`click`, (evt) => {
+      this.onRestartClick(evt);
     });
   }
 }
