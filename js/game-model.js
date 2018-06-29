@@ -22,11 +22,11 @@ export default class GameModel {
   }
 
   die() {
+    this.gameState.wrongAnswers += 1;
+
     if (!this.canContinue()) {
-      // stopTimer(timer);
-      // showScreen(`loose-lives`);
+      this.reasonLoose = `lives`;
     } else {
-      this.gameState.wrongAnswers += 1;
       this.setNextLevel();
     }
   }

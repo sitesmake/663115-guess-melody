@@ -9,6 +9,11 @@ export default class GameScreen {
   }
 
   get element() {
+    if (this.model.reasonLoose) {
+      Application.showLooseScreen(this.model.reasonLoose);
+      return null;
+    }
+
     if (this.model.gameState.currentLevel.type === `genre`) {
       const genreController = new GenreView(this.model.gameState);
 

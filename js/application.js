@@ -4,6 +4,7 @@ import WelcomeScreen from './screens/welcome-screen';
 import GameModel from './game-model';
 import GameScreen from './screens/game-screen';
 import StatisticsScreen from './screens/statistics-screen';
+import LooseScreen from './screens/loose-screen';
 
 let model;
 
@@ -22,5 +23,10 @@ export default class Application {
   static showStatisticsScreen() {
     const statisticsScreen = new StatisticsScreen(model);
     renderScreen(statisticsScreen);
+  }
+
+  static showLooseScreen(reason) {
+    const looseScreen = new LooseScreen(reason);
+    renderScreen(looseScreen);
   }
 }
