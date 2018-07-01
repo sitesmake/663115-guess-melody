@@ -6,6 +6,7 @@ import GameScreen from './screens/game-screen';
 import StatisticsScreen from './screens/statistics-screen';
 import LooseScreen from './screens/loose-screen';
 import SplashScreen from './screens/splash-screen';
+import ErrorView from './views/error-view';
 import adaptServerData from './data/data-adapter';
 
 let model;
@@ -27,7 +28,7 @@ export default class Application {
       then((response) => response.json()).
       then((data) => adaptServerData(data)).
       then((data) => Application.showWelcome(data)).
-      catch((err) => console.error(err)).
+      catch((err) => Application.showErrorModal(err)).
       then(() => splash.stop());
   }
 
@@ -50,5 +51,11 @@ export default class Application {
   static showLooseScreen() {
     const looseScreen = new LooseScreen(model);
     renderScreen(looseScreen);
+  }
+
+  static showErrorModal(error) {
+    const errorMessage = error.toString();
+    const errorView = new ErrorView(errorMessage);
+    errorView.showModal();
   }
 }
