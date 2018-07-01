@@ -7,26 +7,15 @@ import StatisticsScreen from './screens/statistics-screen';
 import LooseScreen from './screens/loose-screen';
 import SplashScreen from './screens/splash-screen';
 import ErrorView from './views/error-view';
-import adaptServerData from './data/data-adapter';
+import Loader from './data/loader';
 
 let model;
-
-const checkStatus = (response) => {
-  if (response.status >= 200 && response.status < 300) {
-    return response;
-  } else {
-    throw new Error(`${response.status}: ${response.statusText}`);
-  }
-};
 
 export default class Application {
   static showSplashScreen() {
     const splash = new SplashScreen();
     renderScreen(splash);
-    window.fetch(`https://es.dump.academy/guess-melody/questions`).
-      then(checkStatus).
-      then((response) => response.json()).
-      then((data) => adaptServerData(data)).
+    Loader.loadQuestions().
       then((data) => Application.showWelcome(data)).
       catch((err) => Application.showErrorModal(err)).
       then(() => splash.stop());

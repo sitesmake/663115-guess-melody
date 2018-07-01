@@ -21,7 +21,6 @@ const processAnswers = (answers) => answers.map((answer) => {
   };
 });
 
-
 const processArtistLevel = (level) => {
   return {
     type: `artist`,
