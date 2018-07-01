@@ -9,7 +9,7 @@ export default class LooseScreen {
   get element() {
     const looseView = new LooseView(this.model.gameState.reasonLoose);
 
-    looseView.onRestartClick = () => Application.showWelcome();
+    looseView.onRestartClick = () => Application.showSplashScreen();
 
     return looseView.element;
   }
