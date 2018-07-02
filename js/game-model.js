@@ -44,4 +44,8 @@ export default class GameModel {
   generateStatistics() {
     this.gameState.totalPoints = totalPoints(this.gameState.answers);
   }
+
+  updateStatictics(data) {
+    this.gameState.otherPlayersResults = data;
+  }
 }

@@ -33,8 +33,14 @@ export default class Application {
   }
 
   static showStatisticsScreen() {
-    const statisticsScreen = new StatisticsScreen(model);
-    renderScreen(statisticsScreen);
+    const splash = new SplashScreen();
+    renderScreen(splash);
+    Loader.loadStatistics().
+      then((data) => model.updateStatictics(data)).
+      then(() => splash.stop()).
+      then(() => renderScreen(new StatisticsScreen(model))).
+      then(() => Loader.saveStatistics(model)).
+      catch((err) => Application.showErrorModal(err));
   }
 
   static showLooseScreen() {
