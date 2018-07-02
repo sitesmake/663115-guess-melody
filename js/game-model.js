@@ -1,9 +1,9 @@
-import {levels} from './data/game-data';
 import {totalPoints} from './game';
 
 export default class GameModel {
-  constructor(gameState) {
+  constructor(gameState, levels) {
     this._gameState = gameState;
+    this._levels = levels;
     this.restart();
   }
 
@@ -14,7 +14,7 @@ export default class GameModel {
 
   setNextLevel() {
     this.gameState.currentLevelIndex += 1;
-    this.gameState.currentLevel = levels[this.gameState.currentLevelIndex];
+    this.gameState.currentLevel = this._levels[this.gameState.currentLevelIndex];
   }
 
   canContinue() {
