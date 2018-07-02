@@ -80,7 +80,9 @@ export default class GameScreen {
 
   updateHeader() {
     const headerElement = document.querySelector(`header`);
-    headerElement.innerHTML = headerHTML(this.model.gameState);
+    if (headerElement) {
+      headerElement.innerHTML = headerHTML(this.model.gameState);
+    }
   }
 
   tick() {
