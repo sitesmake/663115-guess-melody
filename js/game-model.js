@@ -31,13 +31,13 @@ export default class GameModel {
     }
   }
 
-  correctAnswer() {
-    this.gameState.answers.push([true, parseInt(Math.random() * 30, 10)]);
+  correctAnswer(startTime, timeLeft) {
+    this.gameState.answers.push([true, startTime - timeLeft]);
     this.setNextLevel();
   }
 
-  wrongAnswer() {
-    this.gameState.answers.push([false, parseInt(Math.random() * 30, 10)]);
+  wrongAnswer(startTime, timeLeft) {
+    this.gameState.answers.push([false, startTime - timeLeft]);
     this.die();
   }
 
