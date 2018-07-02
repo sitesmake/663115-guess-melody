@@ -1,5 +1,4 @@
 import SplashView from '../views/splash-view';
-import Application from '../application';
 
 export default class SplashScreen {
   constructor() {

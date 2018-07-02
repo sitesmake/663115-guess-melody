@@ -40,7 +40,7 @@ export default class GameScreen {
         onPlayerControlClick(evt);
       };
 
-      genreController.onRestartClick = () => Application.showSplashScreen();
+      genreController.onRestartClick = () => Application.showConfirmModal();
 
       return genreController.element;
     } else {
@@ -61,7 +61,7 @@ export default class GameScreen {
         onPlayerControlClick(evt);
       };
 
-      artistController.onRestartClick = () => Application.showSplashScreen();
+      artistController.onRestartClick = () => Application.showConfirmModal();
 
       return artistController.element;
     }

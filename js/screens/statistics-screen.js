@@ -11,7 +11,7 @@ export default class StatisticsScreen {
 
     const statisticsView = new StatisticsView(this.model.gameState);
 
-    statisticsView.onRestartClick = () => Application.showSplashScreen();
+    statisticsView.onRestartClick = () => Application.restart();
 
     return statisticsView.element;
   }
