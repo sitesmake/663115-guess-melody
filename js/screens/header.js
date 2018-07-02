@@ -3,6 +3,10 @@ const getMinutes = (time) => addPaddingZero(Math.floor(time / 60));
 const getSeconds = (time) => addPaddingZero(Math.floor(time % 60));
 
 export const headerHTML = (gameState) => {
+  let blinkingMode = ``;
+  if (gameState.timeLeft <= 30) {
+    blinkingMode = `blinking`;
+  }
   return `
     <a class="play-again play-again__wrap" href="#">
       <img class="play-again__img" src="/img/melody-logo-ginger.png" alt="logo" width="177" height="76">
@@ -13,7 +17,7 @@ export const headerHTML = (gameState) => {
         class="timer-line"
         style="filter: url(.#blur); transform: rotate(-90deg) scaleY(-1); transform-origin: center"></circle>
 
-      <div class="timer-value" xmlns="http://www.w3.org/1999/xhtml">
+      <div class="timer-value ${blinkingMode}" xmlns="http://www.w3.org/1999/xhtml">
         <span class="timer-value-mins">${getMinutes(gameState.timeLeft)}</span><!--
         --><span class="timer-value-dots">:</span><!--
         --><span class="timer-value-secs">${getSeconds(gameState.timeLeft)}</span>

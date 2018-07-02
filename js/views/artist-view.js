@@ -56,8 +56,10 @@ export default class ArtistView extends AbstractView {
       this.onPlayerControlClick(evt);
     });
 
-    this.element.querySelector(`.play-again`).addEventListener(`click`, (evt) => {
-      this.onRestartClick(evt);
+    this.element.querySelector(`header`).addEventListener(`click`, (evt) => {
+      if (evt.target.closest(`.play-again__wrap`)) {
+        this.onRestartClick(evt);
+      }
     });
   }
 }

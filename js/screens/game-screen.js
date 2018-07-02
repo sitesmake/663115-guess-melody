@@ -11,6 +11,7 @@ export default class GameScreen {
 
   get element() {
     this.startTimer();
+    this._startTime = ~~this.model.gameState.timeLeft;
 
     if (this.model.gameState.currentLevel.type === `genre`) {
       const genreController = new GenreView(this.model.gameState);
@@ -29,9 +30,9 @@ export default class GameScreen {
           return question.correct === answersElements[index].checked;
         });
         if (correctAnswer) {
-          this.model.correctAnswer();
+          this.model.correctAnswer(this._startTime, this.model.gameState.timeLeft);
         } else {
-          this.model.wrongAnswer();
+          this.model.wrongAnswer(this._startTime, this.model.gameState.timeLeft);
         }
         this.showNextGameStep();
       };
@@ -40,7 +41,7 @@ export default class GameScreen {
         onPlayerControlClick(evt);
       };
 
-      genreController.onRestartClick = () => Application.showSplashScreen();
+      genreController.onRestartClick = () => Application.showConfirmModal();
 
       return genreController.element;
     } else {
@@ -50,9 +51,9 @@ export default class GameScreen {
         this.stopTimer();
         const answerIndex = +evt.target.value.split(`-`)[1];
         if (this.model.gameState.currentLevel.answers[answerIndex].correct === true) {
-          this.model.correctAnswer();
+          this.model.correctAnswer(this._startTime, this.model.gameState.timeLeft);
         } else {
-          this.model.wrongAnswer();
+          this.model.wrongAnswer(this._startTime, this.model.gameState.timeLeft);
         }
         this.showNextGameStep();
       };
@@ -61,7 +62,7 @@ export default class GameScreen {
         onPlayerControlClick(evt);
       };
 
-      artistController.onRestartClick = () => Application.showSplashScreen();
+      artistController.onRestartClick = () => Application.showConfirmModal();
 
       return artistController.element;
     }

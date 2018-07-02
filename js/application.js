@@ -7,22 +7,28 @@ import StatisticsScreen from './screens/statistics-screen';
 import LooseScreen from './screens/loose-screen';
 import SplashScreen from './screens/splash-screen';
 import ErrorView from './views/error-view';
+import ConfirmView from './views/confirm-view';
 import Loader from './data/loader';
 
 let model;
+let initialData;
 
 export default class Application {
   static showSplashScreen() {
     const splash = new SplashScreen();
     renderScreen(splash);
     Loader.loadQuestions().
-      then((data) => Application.showWelcome(data)).
+      then((data) => {
+        initialData = data;
+        return data;
+      }).
+      then(() => Application.showWelcomeScreen()).
       catch((err) => Application.showErrorModal(err)).
       then(() => splash.stop());
   }
 
-  static showWelcome(levelsData) {
-    model = new GameModel(initialState, levelsData);
+  static showWelcomeScreen() {
+    model = new GameModel(initialState, initialData);
     const welcome = new WelcomeScreen();
     renderScreen(welcome);
   }
@@ -52,5 +58,14 @@ export default class Application {
     const errorMessage = error.toString();
     const errorView = new ErrorView(errorMessage);
     errorView.showModal();
+  }
+
+  static showConfirmModal() {
+    const confirmView = new ConfirmView();
+    confirmView.showModal();
+  }
+
+  static restart() {
+    this.showWelcomeScreen();
   }
 }
