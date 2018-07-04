@@ -105,13 +105,12 @@ export default class GameScreen {
   }
 
   startTimer() {
-    this.timer = setTimeout(() => {
+    this.timer = setInterval(() => {
       this.tick();
-      this.startTimer();
     }, 1000);
   }
 
   stopTimer() {
-    clearTimeout(this.timer);
+    clearInterval(this.timer);
   }
 }
