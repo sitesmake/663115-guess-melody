@@ -11,7 +11,7 @@ export default class GameScreen {
 
   get element() {
     this.startTimer();
-    this._startTime = ~~this.model.gameState.timeLeft;
+    this._startTime = this.model.gameState.timeLeft;
 
     if (this.model.gameState.currentLevel.type === `genre`) {
       const genreController = new GenreView(this.model.gameState);
@@ -23,7 +23,6 @@ export default class GameScreen {
       };
 
       genreController.onSubmitAnswerFormElement = (evt) => {
-        this.stopTimer();
         const currentLevel = this.model.gameState.currentLevel;
         const answersElements = evt.target.querySelectorAll(`input`);
         const correctAnswer = currentLevel.questions.every((question, index) => {
@@ -41,14 +40,16 @@ export default class GameScreen {
         onPlayerControlClick(evt);
       };
 
-      genreController.onRestartClick = () => Application.showConfirmModal();
+      genreController.onRestartClick = () => {
+        this.stopTimer();
+        Application.showConfirmModal();
+      };
 
       return genreController.element;
     } else {
       const artistController = new ArtistView(this.model.gameState);
 
       artistController.onChangeAnswer = (evt) => {
-        this.stopTimer();
         const answerIndex = +evt.target.value.split(`-`)[1];
         if (this.model.gameState.currentLevel.answers[answerIndex].correct === true) {
           this.model.correctAnswer(this._startTime, this.model.gameState.timeLeft);
@@ -62,7 +63,10 @@ export default class GameScreen {
         onPlayerControlClick(evt);
       };
 
-      artistController.onRestartClick = () => Application.showConfirmModal();
+      artistController.onRestartClick = () => {
+        this.stopTimer();
+        Application.showConfirmModal();
+      };
 
       return artistController.element;
     }
@@ -70,10 +74,12 @@ export default class GameScreen {
 
   showNextGameStep() {
     if (this.model.reasonLoose) {
+      this.stopTimer();
       Application.showLooseScreen(this.model.reasonLoose);
     } else if (this.model.gameState.currentLevel) {
       Application.showGameScreen();
     } else {
+      this.stopTimer();
       Application.showStatisticsScreen();
     }
   }
@@ -90,10 +96,12 @@ export default class GameScreen {
       timeLeft: this.model.gameState.timeLeft - 1
     });
     if (this.model.gameState.timeLeft < 0) {
+      this.stopTimer();
       this.model.gameState.reasonLoose = `time`;
       Application.showLooseScreen();
+    } else {
+      this.updateHeader(this.model.gameState);
     }
-    this.updateHeader(this.model.gameState);
   }
 
   startTimer() {

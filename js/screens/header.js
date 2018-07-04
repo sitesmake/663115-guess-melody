@@ -1,12 +1,10 @@
-const addPaddingZero = (n) => n < 9 ? `0` + n : n;
+const addPaddingZero = (n) => n < 10 ? `0` + n : n;
 const getMinutes = (time) => addPaddingZero(Math.floor(time / 60));
 const getSeconds = (time) => addPaddingZero(Math.floor(time % 60));
 
 export const headerHTML = (gameState) => {
-  let blinkingMode = ``;
-  if (gameState.timeLeft <= 30) {
-    blinkingMode = `blinking`;
-  }
+  const blinkingMode = gameState.timeLeft <= 30 ? `blinking` : ``;
+
   return `
     <a class="play-again play-again__wrap" href="#">
       <img class="play-again__img" src="/img/melody-logo-ginger.png" alt="logo" width="177" height="76">

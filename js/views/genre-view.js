@@ -3,7 +3,7 @@ import {headerHTML} from '../screens/header';
 import {playerHTML} from '../audio';
 
 const answerHTML = (item, i) => {
-  const autoplay = !!(i === 0);
+  const autoplay = (i === 0);
   return `
     <div class="genre-answer">
       <div class="player-wrapper">
