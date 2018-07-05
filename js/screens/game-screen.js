@@ -73,13 +73,12 @@ export default class GameScreen {
   }
 
   showNextGameStep() {
+    this.stopTimer();
     if (this.model.reasonLoose) {
-      this.stopTimer();
       Application.showLooseScreen(this.model.reasonLoose);
     } else if (this.model.gameState.currentLevel) {
       Application.showGameScreen();
     } else {
-      this.stopTimer();
       Application.showStatisticsScreen();
     }
   }
