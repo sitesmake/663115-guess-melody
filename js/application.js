@@ -22,6 +22,9 @@ export default class Application {
         initialData = data;
         return data;
       }).
+      then((data) => Loader.getAllSongs(data)).
+      then((songs) => Loader.loadAllSongs(songs)).
+      then((promises) => Promise.all(promises)).
       then(() => Application.showWelcomeScreen()).
       catch((err) => Application.showErrorModal(err)).
       then(() => splash.stop());
@@ -29,7 +32,7 @@ export default class Application {
 
   static showWelcomeScreen() {
     model = new GameModel(initialState, initialData);
-    const welcome = new WelcomeScreen();
+    const welcome = new WelcomeScreen(model);
     renderScreen(welcome);
   }
 

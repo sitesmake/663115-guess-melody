@@ -12,6 +12,22 @@ const checkStatus = (response) => {
   }
 };
 
+const getSongsSrc = (answer) => {
+  if (answer.type === `artist`) {
+    return [answer.questionSrc];
+  }
+  return answer.questions.map((item) => item.src);
+};
+
+const loadSong = (src) => {
+  return new Promise((onload) => {
+    const newAudio = new Audio(src);
+    newAudio.addEventListener(`canplaythrough`, () => {
+      onload();
+    }, false);
+  });
+};
+
 export default class Loader {
   static loadQuestions() {
     return fetch(QUESTIONS_URL).
@@ -27,6 +43,9 @@ export default class Loader {
   }
 
   static saveStatistics(model) {
+    if (model.gameState.visibleAnswers) {
+      return true;
+    }
     return fetch(STATICTICS_URL, {
       method: `POST`,
       body: JSON.stringify({
@@ -37,5 +56,17 @@ export default class Loader {
         'Content-Type': `application/json`
       }
     });
+  }
+
+  static getAllSongs(data) {
+    let songs = new Set();
+    data.forEach((item) => {
+      getSongsSrc(item).forEach((src) => songs.add(src));
+    });
+    return songs;
+  }
+
+  static loadAllSongs(songs) {
+    return Array.from(songs).map((item) => loadSong(item));
   }
 }
