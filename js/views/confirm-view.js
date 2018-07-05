@@ -4,8 +4,10 @@ import Application from '../application';
 const ESC_KEYCODE = 27;
 
 export default class ConfirmView extends AbstractView {
-  constructor() {
+  constructor(onConfirm, onCancel) {
     super();
+    this._onConfirm = onConfirm;
+    this._onCancel = onCancel;
   }
 
   get template() {
@@ -29,10 +31,12 @@ export default class ConfirmView extends AbstractView {
   onOkClick() {
     document.removeEventListener(`keydown`, this.onEscClose);
     document.querySelector(`.modal-confirm__wrap`).remove();
+    this._onConfirm();
     Application.restart();
   }
 
   onCancelClick() {
+    this._onCancel();
     document.removeEventListener(`keydown`, this.onEscClose);
     document.querySelector(`.modal-confirm__wrap`).remove();
   }

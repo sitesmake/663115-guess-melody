@@ -41,8 +41,7 @@ export default class GameScreen {
       };
 
       genreController.onRestartClick = () => {
-        this.stopTimer();
-        Application.showConfirmModal();
+        Application.showConfirmModal(this.stopTimer, this.startTimer);
       };
 
       return genreController.element;
@@ -64,8 +63,7 @@ export default class GameScreen {
       };
 
       artistController.onRestartClick = () => {
-        this.stopTimer();
-        Application.showConfirmModal();
+        Application.showConfirmModal(this.stopTimer.bind(this), this.startTimer.bind(this));
       };
 
       return artistController.element;
@@ -73,13 +71,12 @@ export default class GameScreen {
   }
 
   showNextGameStep() {
+    this.stopTimer();
     if (this.model.reasonLoose) {
-      this.stopTimer();
       Application.showLooseScreen(this.model.reasonLoose);
     } else if (this.model.gameState.currentLevel) {
       Application.showGameScreen();
     } else {
-      this.stopTimer();
       Application.showStatisticsScreen();
     }
   }
@@ -105,6 +102,7 @@ export default class GameScreen {
   }
 
   startTimer() {
+    clearInterval(this.timer);
     this.timer = setInterval(() => {
       this.tick();
     }, 1000);
