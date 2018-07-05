@@ -60,8 +60,8 @@ export default class Application {
     errorView.showModal();
   }
 
-  static showConfirmModal() {
-    const confirmView = new ConfirmView();
+  static showConfirmModal(onConfirm, onCancel) {
+    const confirmView = new ConfirmView(onConfirm, onCancel);
     confirmView.showModal();
   }
 

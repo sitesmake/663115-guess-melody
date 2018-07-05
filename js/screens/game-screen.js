@@ -41,8 +41,7 @@ export default class GameScreen {
       };
 
       genreController.onRestartClick = () => {
-        this.stopTimer();
-        Application.showConfirmModal();
+        Application.showConfirmModal(this.stopTimer, this.startTimer);
       };
 
       return genreController.element;
@@ -64,8 +63,7 @@ export default class GameScreen {
       };
 
       artistController.onRestartClick = () => {
-        this.stopTimer();
-        Application.showConfirmModal();
+        Application.showConfirmModal(this.stopTimer.bind(this), this.startTimer.bind(this));
       };
 
       return artistController.element;
@@ -104,6 +102,7 @@ export default class GameScreen {
   }
 
   startTimer() {
+    clearInterval(this.timer);
     this.timer = setInterval(() => {
       this.tick();
     }, 1000);
