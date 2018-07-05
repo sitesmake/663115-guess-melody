@@ -11,8 +11,7 @@ export const answerPoints = ([success, time]) => {
 };
 
 export const totalPoints = (answers) => {
-  const result = answers.reduce((sum, answer) => sum + answerPoints(answer), 0);
-  return result;
+  return answers.reduce((sum, answer) => sum + answerPoints(answer), 0);
 };
 
 export const resultsText = (results, currentPlayerResult) => {
@@ -26,22 +25,10 @@ export const resultsText = (results, currentPlayerResult) => {
   results.sort((a, b) => b.totalPoints - a.totalPoints);
   const playerPosition = results.findIndex((el) => el === currentPlayerResult) + 1;
   const totalPlayers = results.length;
-  const bestPercents = parseInt((totalPlayers - playerPosition) / totalPlayers * 100, 10);
+  const bestPercents = Math.round((totalPlayers - playerPosition) / totalPlayers * 100);
   let message = `Вы заняли ${playerPosition} место из ${totalPlayers} игрок${declension(totalPlayers, `а`, `ов`, `ов`)}.`;
   if (bestPercents > 0) {
     message += ` Это лучше, чем у ${bestPercents}% игрок${declension(bestPercents, `а`, `ов`, `ов`)}`;
   }
   return message;
-};
-
-export const timer = (time) => {
-  return Object.freeze({
-    time,
-    tick() {
-      if (time > 1) {
-        return timer(time - 1);
-      }
-      return `Время вышло!`;
-    }
-  });
 };

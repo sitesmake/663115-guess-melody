@@ -1,5 +1,5 @@
 import {assert} from 'chai';
-import {answerPoints, totalPoints, resultsText, timer} from './game.js';
+import {answerPoints, totalPoints, resultsText} from './game.js';
 
 describe(`Функция подсчёта набранных баллов игрока`, () => {
   it(`Начисляет за правильный ответ 1 балл`, () => {
@@ -73,19 +73,5 @@ describe(`Функция вывода результата игрока`, () => 
     ];
     const playerResults = {totalPoints: 4, wrongAnswers: 1, timeLeft: 15};
     assert.equal(`Вы заняли 4 место из 4 игроков.`, resultsText(otherPlayersResults, playerResults));
-  });
-});
-
-describe(`Функция создания таймера`, () => {
-  it(`Создает новый таймер с указанным временем`, () => {
-    assert.equal(20, timer(20).time);
-  });
-
-  it(`При обновлении таймера (вызов метода tick), время уменьшается на единицу`, () => {
-    assert.equal(18, timer(20).tick().tick().time);
-  });
-
-  it(`Сообщает когда время вышло`, () => {
-    assert.equal(`Время вышло!`, timer(2).tick().tick());
   });
 });
