@@ -13,7 +13,7 @@ export const headerHTML = (gameState) => {
       <circle
         cx="390" cy="390" r="370"
         class="timer-line"
-        style="filter: url(.#blur); transform: rotate(-90deg) scaleY(-1); transform-origin: center"></circle>
+        style="filter: url(.#blur); transform: rotate(-90deg) scaleY(-1); transform-origin: center; stroke-dasharray: 2325; stroke-dashoffset: ${7.75 * (300 - gameState.timeLeft)}"></circle>
 
       <div class="timer-value ${blinkingMode}" xmlns="http://www.w3.org/1999/xhtml">
         <span class="timer-value-mins">${getMinutes(gameState.timeLeft)}</span><!--

@@ -8,7 +8,7 @@ import LooseScreen from './screens/loose-screen';
 import SplashScreen from './screens/splash-screen';
 import ErrorView from './views/error-view';
 import ConfirmView from './views/confirm-view';
-import Loader from './data/loader';
+import {Loader} from './data/loader';
 
 let model;
 let initialData;
@@ -22,6 +22,9 @@ export default class Application {
         initialData = data;
         return data;
       }).
+      then((data) => Loader.getAllSongs(data)).
+      then((songs) => Loader.loadAllSongs(songs)).
+      then((promises) => Promise.all(promises)).
       then(() => Application.showWelcomeScreen()).
       catch((err) => Application.showErrorModal(err)).
       then(() => splash.stop());
@@ -29,7 +32,7 @@ export default class Application {
 
   static showWelcomeScreen() {
     model = new GameModel(initialState, initialData);
-    const welcome = new WelcomeScreen();
+    const welcome = new WelcomeScreen(model);
     renderScreen(welcome);
   }
 

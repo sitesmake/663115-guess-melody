@@ -2,15 +2,17 @@ import AbstractView from '../abstract-view';
 import {headerHTML} from '../screens/header';
 import {playerHTML} from '../audio';
 
-const answerHTML = (item, i) => {
+const answerHTML = (item, i, visibleAnswers) => {
   const autoplay = (i === 0);
+  const helpMark = (visibleAnswers && item.correct) ? `+` : ``;
+
   return `
     <div class="genre-answer">
       <div class="player-wrapper">
         ${playerHTML(`${item.src}`, autoplay)}
       </div>
       <input type="checkbox" name="answer" value="answer-${i}" id="a-${i}">
-      <label class="genre-answer-check" for="a-${i}"></label>
+      <label class="genre-answer-check" for="a-${i}">${helpMark}</label>
     </div>
   `;
 };
@@ -32,7 +34,7 @@ export default class GenreView extends AbstractView {
         <div class="main-wrap">
           <h2 class="title">${currentLevel.title}</h2>
           <form class="genre">
-            ${currentLevel.questions.map((question, index) => answerHTML(question, index)).join(``)}
+            ${currentLevel.questions.map((question, index) => answerHTML(question, index, this.gameState.visibleAnswers)).join(``)}
             <button class="genre-answer-send" type="submit" disabled>Ответить</button>
           </form>
         </div>

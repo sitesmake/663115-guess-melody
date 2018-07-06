@@ -1,16 +1,9 @@
-let globalIdCounter = 0;
-const generateId = () => `player-` + globalIdCounter++;
+import {preloadedAudio} from './data/loader.js';
 
 export const playerHTML = (src, playing) => {
-  const playerId = generateId();
   return `
     <div class="player">
-      <audio
-        id="audio-${playerId}"
-        src="${src}"
-        ${!playing ? `` : `autoplay`}>
-      </audio>
-      <button data-id="audio-${playerId}"
+      <button data-src="${src}"
         class="player-control player-control--${!playing ? `play` : `pause`}">
       </button>
       <div class="player-track">
@@ -19,9 +12,12 @@ export const playerHTML = (src, playing) => {
     </div>`;
 };
 
-const stopAllAudio = () => {
+export const stopAllAudio = () => {
+  Object.keys(preloadedAudio).forEach((src) => {
+    preloadedAudio[src].pause();
+  });
+
   document.querySelectorAll(`.player`).forEach((item) => {
-    item.querySelector(`audio`).pause();
     const button = item.querySelector(`button`);
     button.classList.remove(`player-control--pause`);
     button.classList.add(`player-control--play`);
@@ -31,8 +27,8 @@ const stopAllAudio = () => {
 export const onPlayerControlClick = (evt) => {
   evt.preventDefault();
   const element = evt.target;
-  const id = element.dataset.id;
-  const audioElement = document.querySelector(`#${id}`);
+  const src = element.dataset.src;
+  const audioElement = preloadedAudio[src];
   if (element.classList.contains(`player-control--play`)) {
     stopAllAudio();
     audioElement.play();

@@ -2,14 +2,16 @@ import AbstractView from '../abstract-view';
 import {headerHTML} from '../screens/header';
 import {playerHTML} from '../audio';
 
-const answerHTML = (item, i) => {
+const answerHTML = (item, i, visibleAnswers) => {
+  const helpMark = (visibleAnswers && item.correct) ? `(+)` : ``;
+
   return `
     <div class="main-answer-wrapper">
       <input class="main-answer-r" type="radio" id="answer-${i}" name="answer" value="val-${i}"/>
       <label class="main-answer" for="answer-${i}">
         <img class="main-answer-preview" src="${item.src}"
              alt="${item.artist}" width="134" height="134">
-        ${item.artist}
+        ${item.artist}${helpMark}
       </label>
     </div>
   `;
@@ -35,7 +37,7 @@ export default class ArtistView extends AbstractView {
             ${playerHTML(`${currentLevel.questionSrc}`, true)}
           </div>
           <form class="main-list">
-            ${currentLevel.answers.map((answer, index) => answerHTML(answer, index)).join(``)}
+            ${currentLevel.answers.map((answer, index) => answerHTML(answer, index, this.gameState.visibleAnswers)).join(``)}
           </form>
         </div>
       </section>`;
