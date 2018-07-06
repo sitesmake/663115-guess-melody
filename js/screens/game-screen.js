@@ -1,7 +1,8 @@
 import Application from '../application.js';
 import ArtistView from '../views/artist-view.js';
 import GenreView from '../views/genre-view.js';
-import {onPlayerControlClick} from '../audio';
+import {onPlayerControlClick, stopAllAudio} from '../audio';
+import {preloadedAudio} from '../data/loader.js';
 import {headerHTML} from './header';
 
 export default class GameScreen {
@@ -15,6 +16,8 @@ export default class GameScreen {
 
     if (this.model.gameState.currentLevel.type === `genre`) {
       const genreController = new GenreView(this.model.gameState);
+
+      preloadedAudio[this.model.gameState.currentLevel.questions[0].src].play();
 
       genreController.onChangeAnswerFormElement = () => {
         const submitAnswerButton = document.querySelector(`.genre-answer-send`);
@@ -48,6 +51,8 @@ export default class GameScreen {
     } else {
       const artistController = new ArtistView(this.model.gameState);
 
+      preloadedAudio[this.model.gameState.currentLevel.questionSrc].play();
+
       artistController.onChangeAnswer = (evt) => {
         const answerIndex = +evt.target.value.split(`-`)[1];
         if (this.model.gameState.currentLevel.answers[answerIndex].correct === true) {
@@ -72,6 +77,7 @@ export default class GameScreen {
 
   showNextGameStep() {
     this.stopTimer();
+    stopAllAudio();
     if (this.model.reasonLoose) {
       Application.showLooseScreen(this.model.reasonLoose);
     } else if (this.model.gameState.currentLevel) {

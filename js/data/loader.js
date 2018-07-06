@@ -25,10 +25,10 @@ const loadSong = (src) => {
   return new Promise((onload) => {
     const audio = new Audio();
     audio.src = src;
-    audio.addEventListener(`canplaythrough`, () => {
-      onload(audio);
-    });
     preloadedAudio[src] = audio;
+    audio.addEventListener(`canplaythrough`, () => {
+      onload();
+    });
   });
 };
 

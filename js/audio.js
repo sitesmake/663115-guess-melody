@@ -12,9 +12,12 @@ export const playerHTML = (src, playing) => {
     </div>`;
 };
 
-const stopAllAudio = () => {
+export const stopAllAudio = () => {
+  Object.keys(preloadedAudio).forEach((src) => {
+    preloadedAudio[src].pause();
+  });
+
   document.querySelectorAll(`.player`).forEach((item) => {
-    item.querySelector(`audio`).pause();
     const button = item.querySelector(`button`);
     button.classList.remove(`player-control--pause`);
     button.classList.add(`player-control--play`);
@@ -26,7 +29,6 @@ export const onPlayerControlClick = (evt) => {
   const element = evt.target;
   const src = element.dataset.src;
   const audioElement = preloadedAudio[src];
-  debugger;
   if (element.classList.contains(`player-control--play`)) {
     stopAllAudio();
     audioElement.play();
