@@ -8,7 +8,7 @@ import LooseScreen from './screens/loose-screen';
 import SplashScreen from './screens/splash-screen';
 import ErrorView from './views/error-view';
 import ConfirmView from './views/confirm-view';
-import Loader from './data/loader';
+import {Loader} from './data/loader';
 
 let model;
 let initialData;

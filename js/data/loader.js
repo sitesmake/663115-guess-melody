@@ -4,6 +4,8 @@ const APP_ID = `663115999`;
 const QUESTIONS_URL = `https://es.dump.academy/guess-melody/questions`;
 const STATICTICS_URL = `https://es.dump.academy/guess-melody/stats/${APP_ID}`;
 
+export const preloadedAudio = {};
+
 const checkStatus = (response) => {
   if (response.status >= 200 && response.status < 300) {
     return response;
@@ -21,14 +23,16 @@ const getSongsSrc = (answer) => {
 
 const loadSong = (src) => {
   return new Promise((onload) => {
-    const newAudio = new Audio(src);
-    newAudio.addEventListener(`canplaythrough`, () => {
-      onload();
-    }, false);
+    const audio = new Audio();
+    audio.src = src;
+    audio.addEventListener(`canplaythrough`, () => {
+      onload(audio);
+    });
+    preloadedAudio[src] = audio;
   });
 };
 
-export default class Loader {
+export class Loader {
   static loadQuestions() {
     return fetch(QUESTIONS_URL).
       then(checkStatus).
