@@ -31,6 +31,7 @@ export const onPlayerControlClick = (evt) => {
   const audioElement = preloadedAudio[src];
   if (element.classList.contains(`player-control--play`)) {
     stopAllAudio();
+    audioElement.currentTime = 0;
     audioElement.play();
     element.classList.remove(`player-control--play`);
     element.classList.add(`player-control--pause`);
