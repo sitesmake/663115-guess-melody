@@ -25,7 +25,7 @@ const loadSong = (src) => {
   return new Promise((onload) => {
     const audio = new Audio();
     audio.src = src;
-    preloadedAudio[src] = audio;
+    preloadedAudio[src] = document.createElement(`audio`).appendChild(audio);
     audio.addEventListener(`canplaythrough`, () => {
       onload();
     });
